@@ -3,6 +3,7 @@
 /env/
 /*.conf
 __pycache__
+venv/
 
 # Locust
 /tests/locust/env
