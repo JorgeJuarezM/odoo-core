@@ -20,7 +20,7 @@ migration:
           - /bin/sh -c "VERSION=15.0.1.0.0 anthem songs.environment::main"
       addons:
         upgrade:
-          - customer
+          # - customer
           - monitoring_status
           - web_environment_ribbon
 #      modes:
