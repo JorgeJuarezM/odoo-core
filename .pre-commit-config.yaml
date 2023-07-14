@@ -13,7 +13,9 @@ exclude: |
   # Repos using Sphinx to generate docs don't need prettying
   ^docs/_templates/.*\.html$|
   # You don't usually want a bot to modify your legal texts
-  (LICENSE.*|COPYING.*)
+  (LICENSE.*|COPYING.*)|
+  # Helm templates
+  ^helm/odoo/templates/
 default_language_version:
   python: python3
   node: "16.17.0"
