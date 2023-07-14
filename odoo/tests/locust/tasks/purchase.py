@@ -8,8 +8,9 @@ from locust import task
 
 class PurchaseTaskSet(helper.BaseBackendTaskSet):
     def on_start(self, *args, **kwargs):
-        super(PurchaseTaskSet, self).on_start(*args, **kwargs)
+        result = super(PurchaseTaskSet, self).on_start(*args, **kwargs)
         self.Purchase = self.client.env["purchase.order"]
+        return result
 
     @task(20)
     def create_new_rfq(self):
