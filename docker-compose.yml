@@ -12,6 +12,7 @@ services:
       - "postgres-data:/var/lib/postgresql/data"
 
   odoo:
+    image: odoo-core
     build:
       context: odoo
     ports:
@@ -19,6 +20,8 @@ services:
       - "8072:8072"
     volumes:
       - "odoo-data:/odoo/data"
+      - "./odoo/src/private-addons:/odoo/private-addons"
+      - "./odoo/src/odoo-cloud-platform:/odoo/odoo-cloud-platform"
     depends_on:
       - db
     environment:

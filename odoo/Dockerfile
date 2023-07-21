@@ -53,7 +53,7 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
     && apt -y install --no-install-recommends ./odoo.deb \
     && rm -rf /var/lib/apt/lists/* odoo.deb
 
-RUN mkdir -p /odoo/addons /odoo/data
+RUN mkdir -p /odoo/addons /odoo/data /odoo/private-addons /odoo/odoo-cloud-platform
 
 # Copy entrypoint script and Odoo configuration file
 COPY entrypoint.sh /
@@ -66,7 +66,7 @@ RUN chmod 777 /usr/local/bin/wait-for-psql.py
 # COPY src/odoo-cloud-platform/attachment_azure /odoo/addons/attachment_azure
 # COPY src/odoo-cloud-platform/attachment_s3 /odoo/addons/attachment_s3
 # COPY src/odoo-cloud-platform/base_attachment_object_storage /odoo/addons/base_attachment_object_storage
-COPY src/odoo-cloud-platform/monitoring_status /odoo/addons/monitoring_status
+COPY src/odoo-cloud-platform/monitoring_status /odoo/odoo-cloud-platform/monitoring_status
 # COPY src/odoo-cloud-platform/session_redis /odoo/addons/session_redis
 
 
@@ -82,7 +82,7 @@ RUN cd /odoo && pip3 install -r requirements.txt
 
 # Copy Addons
 # COPY src/paid-addons /odoo/addons/
-COPY --chown=odoo src/private-addons /odoo/addons/
+COPY --chown=odoo src/private-addons /odoo/private-addons/
 # COPY src/enterprise /odoo/addons/
 
 # Set the default config file
