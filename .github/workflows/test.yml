@@ -13,13 +13,26 @@ jobs:
         with:
           submodules: true
           token: ${{ github.token }}
-
-      - name: 'Build'
-        uses: sudo-bot/action-docker-compose@latest
+      - name: Cache register
+        id: cache
+        uses: actions/cache@v3.2.3
         with:
-          cli-args: "build"
-
+          path: /tmp/odoo.tar
+          key: odoo-${{ runner.os }}-${{ hashFiles('**/Dockerfile', '**/requirements.txt') }}
+      - name: Set up Docker Buildx
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: docker/setup-buildx-action@v2
+      - name: Build and push
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: docker/build-push-action@v3
+        with:
+          context: ./odoo
+          file: ./odoo/Dockerfile
+          tags: odoo-core
+          outputs: type=docker,dest=/tmp/odoo.tar
+      - name: Load image
+        run: |
+          docker load --input /tmp/odoo.tar
       - name: "Run tests"
-        uses: sudo-bot/action-docker-compose@latest
-        with:
-          cli-args: "run odoo --test-enable --workers=0 --stop-after-init -d test -i web"
+        run: |
+          docker-compose run odoo --test-enable --workers=0 --stop-after-init -d test -i web

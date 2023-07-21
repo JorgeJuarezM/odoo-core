@@ -1,5 +1,5 @@
 [options]
-addons_path = {{ default "/odoo/addons" .Env.ODOO_ADDONS_PATH }}
+addons_path = {{ default "/odoo/addons,/odoo/private-addons,/odoo/odoo-cloud-platform" .Env.ODOO_ADDONS_PATH }}
 admin_passwd = {{ default "admin" .Env.ODOO_ADMIN_PASSWD }}
 csv_internal_sep = {{ default "," .Env.ODOO_CSV_INTERNAL_SEP }}
 data_dir = {{ default "/odoo/data" .Env.ODOO_DATA_DIR }}
