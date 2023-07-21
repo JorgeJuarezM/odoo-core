@@ -15,7 +15,9 @@ exclude: |
   # You don't usually want a bot to modify your legal texts
   (LICENSE.*|COPYING.*)|
   # Helm templates
-  ^helm/odoo/templates/
+  ^helm/odoo/templates/|
+  ^odoo/wait-for-psql.py|
+  ^odoo/src/odoo-cloud-platform/
 default_language_version:
   python: python3
   node: "16.17.0"
